@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  users_service:
+  users-service:
     build:
       context: ../../users-service
       dockerfile: Dockerfile
@@ -14,7 +14,7 @@ services:
       START_TIMEOUT: ${START_TIMEOUT}
       SHUTDOWN_TIMEOUT: ${SHUTDOWN_TIMEOUT}
       CONSUL_URL: ${CONSUL_URL}
-      POSTGRES_URL: postgres://${USERS_DB_USERNAME}:${USERS_DB_PASSWORD}@users_postgres:5432/${USERS_DB_NAME}
+      POSTGRES_URL: postgres://${USERS_DB_USERNAME}:${USERS_DB_PASSWORD}@users-postgres:5432/${USERS_DB_NAME}
       JWT_SECRET: ${JWT_SECRET}
       JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
       JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
@@ -26,8 +26,8 @@ services:
     depends_on:
       - users_postgres
 
-  users_postgres:
-    container_name: users_postgres
+  users-postgres:
+    container_name: users-postgres
     image: postgres:17.2-alpine
     environment:
       POSTGRES_USER: ${USERS_DB_USERNAME}
@@ -45,7 +45,7 @@ services:
       interval: 2s
       timeout: 15s
 
-  users_migrator:
+  users-migrator:
     build:
       context: ../../users-service
       dockerfile: tern.dockerfile
