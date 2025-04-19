@@ -15,10 +15,10 @@ services:
     networks:
       - qw_gateway-net
 
-  api-grpc-gateway:
-    container_name: grpc-gateway
+  api-gateway:
+    container_name: gateway
     build:
-      context: ../../api-grpc-gateway
+      context: ../../api-gateway
       dockerfile: Dockerfile
     environment:
       LOCAL: ${LOCAL}
