@@ -10,3 +10,9 @@ users-up:
 
 users-down:
 	docker-compose -f ./compose/users-service.docker-compose.yaml --env-file=./compose/envs/users-service.env down
+
+questions-up:
+	docker-compose -f ./compose/questions-service.docker-compose.yaml --env-file=./compose/envs/questions-service.env up -d --build
+
+questions-down:
+	docker-compose -f ./compose/questions-service.docker-compose.yaml --env-file=./compose/envs/questions-service.env down
