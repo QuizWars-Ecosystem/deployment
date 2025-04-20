@@ -4,21 +4,10 @@ services:
 
   questions-service:
     build:
-      context: ../../questions-service
+      context: ../../../questions-service
       dockerfile: Dockerfile
-    environment:
-      LOCAL: ${LOCAL}
-      NAME: ${NAME}
-      ADDRESS: ${ADDRESS}
-      GRPC_PORT: ${GRPC_PORT}
-      START_TIMEOUT: ${START_TIMEOUT}
-      SHUTDOWN_TIMEOUT: ${SHUTDOWN_TIMEOUT}
-      CONSUL_URL: ${CONSUL_URL}
-      POSTGRES_URL: postgres://${QUESTIONS_DB_USERNAME}:${QUESTIONS_DB_PASSWORD}@questions-postgres:5432/${QUESTIONS_DB_NAME}
-      REDIS_URL: questions-redis:6379
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION}
-      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION}
+    volumes:
+      - ./configs/questions.yaml:/app/config/config.yaml
     ports:
       - ${GRPC_PORT}:${GRPC_PORT}
     networks:
@@ -58,7 +47,7 @@ services:
 
   questions-migrator:
     build:
-      context: ../../questions-service
+      context: ../../../questions-service
       dockerfile: tern.dockerfile
     command:
       - migrate

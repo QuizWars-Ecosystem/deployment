@@ -1,18 +1,18 @@
-# Docker compose commands
-gateway-up:
-	docker-compose -f ./compose/api-gateway.docker-compose.yaml --env-file=./compose/envs/api-gateway.env up -d --build
+# DEVELOPMENT Docker compose commands
+dev-gateway-up:
+	docker-compose -f ./compose/dev/api-gateway.docker-compose.yaml --env-file=./compose/dev/configs/gateway.env up -d --build
 
-gateway-down:
-	docker-compose -f ./compose/api-gateway.docker-compose.yaml --env-file=./compose/envs/api-gateway.env down
+dev-gateway-down:
+	docker-compose -f ./compose/dev/api-gateway.docker-compose.yaml --env-file=./compose/dev/configs/gateway.env down
 
-users-up:
-	docker-compose -f ./compose/users-service.docker-compose.yaml --env-file=./compose/envs/users-service.env up -d --build
+dev-users-up:
+	docker-compose -f ./compose/dev/users-service.docker-compose.yaml --env-file=./compose/dev/configs/users.env up -d --build
 
-users-down:
-	docker-compose -f ./compose/users-service.docker-compose.yaml --env-file=./compose/envs/users-service.env down
+dev-users-down:
+	docker-compose -f ./compose/dev/users-service.docker-compose.yaml --env-file=./compose/dev/configs/users.env down
 
-questions-up:
-	docker-compose -f ./compose/questions-service.docker-compose.yaml --env-file=./compose/envs/questions-service.env up -d --build
+dev-questions-up:
+	docker-compose -f ./compose/dev/questions-service.docker-compose.yaml --env-file=./compose/dev/configs/questions.env up -d --build
 
-questions-down:
-	docker-compose -f ./compose/questions-service.docker-compose.yaml --env-file=./compose/envs/questions-service.env down
+dev-questions-down:
+	docker-compose -f ./compose/dev/questions-service.docker-compose.yaml --env-file=./compose/dev/configs/questions.env down

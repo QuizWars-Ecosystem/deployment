@@ -7,5 +7,5 @@
 out
 gen
 envs
-compose/envs
+compose/dev/configs
 .env
