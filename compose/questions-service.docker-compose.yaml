@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  questions_service:
+  questions-service:
     build:
       context: ../../questions-service
       dockerfile: Dockerfile

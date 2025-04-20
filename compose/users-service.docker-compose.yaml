@@ -24,7 +24,7 @@ services:
       - qw_users-net
       - qw_gateway-net
     depends_on:
-      - users_postgres
+      - users-postgres
 
   users-postgres:
     container_name: users-postgres
@@ -52,13 +52,13 @@ services:
     command:
       - migrate
       - --conn-string
-      - postgres://${USERS_DB_USERNAME}:${USERS_DB_PASSWORD}@users_postgres:5432/${USERS_DB_NAME}
+      - postgres://${USERS_DB_USERNAME}:${USERS_DB_PASSWORD}@users-postgres:5432/${USERS_DB_NAME}
       - --migrations
       - /migrations
     networks:
       - qw_users-net
     depends_on:
-      users_postgres:
+      users-postgres:
         condition: service_healthy
 
 networks:
