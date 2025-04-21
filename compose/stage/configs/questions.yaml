@@ -1,0 +1,29 @@
+version: v1
+
+service:
+  name: questions-service
+  address: questions-service
+  local: true
+  grpc_port: 22001
+  start_timeout: 20s
+  stop_timeout: 20s
+  consul_url: consul:8500
+
+logger:
+  level: debug
+
+jwt:
+  secret: secret
+  access_expiration: 12h
+  refresh_expiration: 168h
+
+postgres:
+  url: postgres://user:pass@questions-postgres:5432/questions
+
+redis:
+  url: questions-redis:6379
+
+store:
+  warm_up: true
+  warm_up_amount: 100
+  warm_up_timeout: 30m

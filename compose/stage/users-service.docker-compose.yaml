@@ -3,16 +3,12 @@ version: "3"
 services:
 
   users-service:
-    build:
-      context: ../../../users-service
-      dockerfile: Dockerfile
+    image: davidmovas/quizwars-users-service:latest
     volumes:
       - ./configs/users.yaml:/app/config/config.yaml
-    ports:
-      - ${GRPC_PORT}:${GRPC_PORT}
     networks:
-      - qw_users-net
-      - qw_gateway-net
+      - qw_stage_users-net
+      - qw_stage_gateway-net
     depends_on:
       users-postgres:
         condition: service_healthy
@@ -28,18 +24,16 @@ services:
     ports:
       - ${USERS_DB_PORT}:5432
     volumes:
-      - qw_users_postgres_data:/var/lib/postgresql/data
+      - qw_stage_users_postgres_data:/var/lib/postgresql/data
     networks:
-      - qw_users-net
+      - qw_stage_users-net
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready --dbname ${USERS_DB_NAME} --username ${USERS_DB_USERNAME}" ]
       interval: 2s
       timeout: 15s
 
   users-migrator:
-    build:
-      context: ../../../users-service
-      dockerfile: tern.dockerfile
+    image: davidmovas/quizwars-migrations:users-latest
     command:
       - migrate
       - --conn-string
@@ -47,14 +41,14 @@ services:
       - --migrations
       - /migrations
     networks:
-      - qw_users-net
+      - qw_stage_users-net
     depends_on:
       users-postgres:
         condition: service_healthy
 
 networks:
-  qw_gateway-net:
-  qw_users-net:
+  qw_stage_gateway-net:
+  qw_stage_users-net:
 
 volumes:
-  qw_users_postgres_data:
+  qw_stage_users_postgres_data:

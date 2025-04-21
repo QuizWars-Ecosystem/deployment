@@ -1,0 +1,24 @@
+version: v1
+
+service:
+  name: users-service
+  address: users-service
+  local: true
+  grpc_port: 21001
+  start_timeout: 20s
+  stop_timeout: 20s
+  consul_url: consul:8500
+
+logger:
+  level: debug
+
+jwt:
+  secret: secret
+  access_expiration: 12h
+  refresh_expiration: 168h
+
+postgres:
+  url: postgres://user:pass@users-postgres:5432/users
+
+redis:
+  url: some_url

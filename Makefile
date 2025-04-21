@@ -16,3 +16,23 @@ dev-questions-up:
 
 dev-questions-down:
 	docker-compose -f ./compose/dev/questions-service.docker-compose.yaml --env-file=./compose/dev/configs/questions.env down
+
+# STAGING Docker compose commands
+
+stage-gateway-up:
+	docker-compose -f ./compose/stage/api-gateway.docker-compose.yaml --env-file=./compose/stage/configs/gateway.env up -d --build
+
+stage-gateway-down:
+	docker-compose -f ./compose/stage/api-gateway.docker-compose.yaml --env-file=./compose/stage/configs/gateway.env down
+
+stage-users-up:
+	docker-compose -f ./compose/stage/users-service.docker-compose.yaml --env-file=./compose/stage/configs/users.env up -d --build
+
+stage-users-down:
+	docker-compose -f ./compose/stage/users-service.docker-compose.yaml --env-file=./compose/stage/configs/users.env down
+
+stage-questions-up:
+	docker-compose -f ./compose/stage/questions-service.docker-compose.yaml --env-file=./compose/stage/configs/questions.env up -d --build
+
+stage-questions-down:
+	docker-compose -f ./compose/stage/questions-service.docker-compose.yaml --env-file=./compose/stage/configs/questions.env down
