@@ -1,4 +1,10 @@
 # DEVELOPMENT Docker compose commands
+dev-up:
+	make dev-gateway-up dev-users-up dev-questions-up
+
+dev-down:
+	make dev-questions-down dev-users-down dev-gateway-down
+
 dev-gateway-up:
 	docker-compose -f ./compose/dev/api-gateway.docker-compose.yaml --env-file=./compose/dev/configs/gateway.env up -d --build
 
@@ -18,6 +24,11 @@ dev-questions-down:
 	docker-compose -f ./compose/dev/questions-service.docker-compose.yaml --env-file=./compose/dev/configs/questions.env down
 
 # STAGING Docker compose commands
+stage-up:
+	make stage-gateway-up stage-users-up stage-questions-up
+
+stage-down:
+	make stage-questions-down stage-users-down stage-gateway-down
 
 stage-gateway-up:
 	docker-compose -f ./compose/stage/api-gateway.docker-compose.yaml --env-file=./compose/stage/configs/gateway.env up -d --build
