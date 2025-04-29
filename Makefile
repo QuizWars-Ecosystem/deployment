@@ -1,9 +1,9 @@
 # DEVELOPMENT Docker compose commands
 dev-up:
-	make dev-gateway-up dev-users-up dev-questions-up
+	make dev-metrics-up dev-logging-up dev-gateway-up dev-users-up dev-questions-up
 
 dev-down:
-	make dev-questions-down dev-users-down dev-gateway-down
+	make dev-questions-down dev-users-down dev-gateway-down dev-logging-up dev-metrics-up
 
 dev-gateway-up:
 	docker-compose -f ./compose/dev/api-gateway.docker-compose.yaml --env-file=./compose/dev/configs/gateway.env up -d --build
@@ -22,6 +22,18 @@ dev-questions-up:
 
 dev-questions-down:
 	docker-compose -f ./compose/dev/questions-service.docker-compose.yaml --env-file=./compose/dev/configs/questions.env down
+
+dev-metrics-up:
+	docker-compose -f ./compose/dev/metrics.docker-compose.yaml up -d
+
+dev-metrics-down:
+	docker-compose -f ./compose/dev/metrics.docker-compose.yaml down
+
+dev-logging-up:
+	docker-compose -f ./compose/dev/logging.docker-compose.yaml up -d
+
+dev-logging-down:
+	docker-compose -f ./compose/dev/logging.docker-compose.yaml down
 
 # STAGING Docker compose commands
 stage-up:

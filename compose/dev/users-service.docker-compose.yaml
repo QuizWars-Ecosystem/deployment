@@ -11,8 +11,9 @@ services:
     ports:
       - ${GRPC_PORT}:${GRPC_PORT}
     networks:
-      - qw_users-net
-      - qw_gateway-net
+      - qw_dev_users-net
+      - qw_dev_gateway-net
+      - qw_dev_monitoring-net
     depends_on:
       users-postgres:
         condition: service_healthy
@@ -30,7 +31,8 @@ services:
     volumes:
       - qw_users_postgres_data:/var/lib/postgresql/data
     networks:
-      - qw_users-net
+      - qw_dev_users-net
+      - qw_dev_monitoring-net
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready --dbname ${USERS_DB_NAME} --username ${USERS_DB_USERNAME}" ]
       interval: 2s
@@ -47,14 +49,15 @@ services:
       - --migrations
       - /migrations
     networks:
-      - qw_users-net
+      - qw_dev_users-net
     depends_on:
       users-postgres:
         condition: service_healthy
 
 networks:
-  qw_gateway-net:
-  qw_users-net:
+  qw_dev_gateway-net:
+  qw_dev_users-net:
+  qw_dev_monitoring-net:
 
 volumes:
   qw_users_postgres_data:

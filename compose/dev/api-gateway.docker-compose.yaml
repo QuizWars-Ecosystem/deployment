@@ -13,7 +13,8 @@ services:
       - ./configs/consul.hcl:/consul/config/consul.hcl
     command: agent -dev -client=0.0.0.0 # Only for development mode
     networks:
-      - qw_gateway-net
+      - qw_dev_gateway-net
+      - qw_dev_monitoring-net
 
   api-gateway:
     container_name: gateway
@@ -36,12 +37,14 @@ services:
       - ${GRPC_PORT}:${GRPC_PORT}
       - ${WS_PORT}:${WS_PORT}
     networks:
-      - qw_gateway-net
+      - qw_dev_gateway-net
+      - qw_dev_monitoring-net
     depends_on:
       - consul
 
 networks:
-  qw_gateway-net:
+  qw_dev_gateway-net:
+  qw_dev_monitoring-net:
 
 volumes:
   qw_consul_data:

@@ -11,8 +11,9 @@ services:
     ports:
       - ${GRPC_PORT}:${GRPC_PORT}
     networks:
-      - qw_questions-net
-      - qw_gateway-net
+      - qw_dev_questions-net
+      - qw_dev_gateway-net
+      - qw_dev_monitoring-net
     depends_on:
       questions-postgres:
         condition: service_healthy
@@ -25,7 +26,8 @@ services:
     volumes:
       - qw_questions_redis_data:/data
     networks:
-      - qw_questions-net
+      - qw_dev_questions-net
+      - qw_dev_monitoring-net
 
   questions-postgres:
     container_name: questions-postgres
@@ -40,7 +42,8 @@ services:
     volumes:
       - qw_questions_postgres_data:/var/lib/postgresql/data
     networks:
-      - qw_questions-net
+      - qw_dev_questions-net
+      - qw_dev_monitoring-net
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready --dbname ${QUESTIONS_DB_NAME} --username ${QUESTIONS_DB_USERNAME}" ]
       interval: 2s
@@ -57,14 +60,15 @@ services:
       - --migrations
       - /migrations
     networks:
-      - qw_questions-net
+      - qw_dev_questions-net
     depends_on:
       questions-postgres:
         condition: service_healthy
 
 networks:
-  qw_gateway-net:
-  qw_questions-net:
+  qw_dev_gateway-net:
+  qw_dev_questions-net:
+  qw_dev_monitoring-net:
 
 volumes:
   qw_questions_postgres_data:
