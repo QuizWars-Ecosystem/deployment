@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.68.0
+    ports:
+      - "16686:16686"  # UI
+      - "14250:14250"  # OTLP gRPC for collector
+      - "6831:6831/udp"  # UDP for agents
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    networks:
+      - qw_dev_monitoring-net
+
+  otel-collector:
+    container_name: otel-collector
+    image: otel/opentelemetry-collector-contrib:0.123.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./configs/telemetry.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"  # OTLP gRPC for app
+      - "8888:8888"  # health check
+      - "55679:55679" # zPages
+    depends_on:
+      - jaeger
+    networks:
+      - qw_dev_monitoring-net
+
+networks:
+  qw_dev_monitoring-net:
